@@ -128,34 +128,24 @@ The CNN learns discriminative acoustic patterns from the Mel-spectrogram.
 
 The final layer produces a spoof probability between 0 and 1.
 
-Classification:
+### Classification:
+    Probability >= 0.5 → SPOOF
+    Probability < 0.5  → BONAFIDE
 
-```text
-Probability >= 0.5 → SPOOF
-Probability < 0.5  → BONAFIDE
+### 📊 Model Performance
 
-📊 Model Performance
+    Evaluation was performed on the 1,024-sample held-out test set.
 
-Evaluation was performed on the 1,024-sample held-out test set.
+    Metric	Result
+    Accuracy	80.96%
+    Precision	87.27%
+    Recall	73.42%
+    F1 Score	79.75%
+    ROC-AUC	89.50%
+    EER
 
-Metric	Result
-Accuracy	80.96%
-Precision	87.27%
-Recall	73.42%
-F1 Score	79.75%
-ROC-AUC	89.50%
-EER
 
-Confusion Matrix:
-
-                 Predicted
-              Bonafide  Spoof
-
-Actual
-Bonafide         445      56
-Spoof            139     384
-
-🏗️ System Architecture
+### 🏗️ System Architecture
                  ┌─────────────────┐
                  │   Audio Upload  │
                  └────────┬────────┘
@@ -189,69 +179,70 @@ Spoof            139     384
                  │ Hash-linked     │
                  └─────────────────┘
 
-                 🛠️ Tech Stack
-Frontend
-React
-Vite
-JavaScript
-Lucide React
-Backend
-Python
-FastAPI
-Uvicorn
-AI / ML
-PyTorch
-OpenAI Whisper
-Librosa / audio processing tools
-Security
-Fraud keyword analysis
-Composite risk engine
-SHA-256 hash-linked evidence chain
-Audio
+### 🛠️ Tech Stack
+    Frontend
+    React
+    Vite
+    JavaScript
+    Lucide React
+    Backend
+    Python
+    FastAPI
+    Uvicorn
+    AI / ML
+    PyTorch
+    OpenAI Whisper
+    Librosa / audio processing tools
+    Security
+    Fraud keyword analysis
+    Composite risk engine
+    SHA-256 hash-linked evidence chain
+    Audio
 
-Supported formats:
+### Supported formats:
 
-WAV
-MP3
-M4A
-FLAC
-OGG
-AAC
-🔐 Security
+    WAV
+    MP3
+    M4A
+    FLAC
+    OGG
+    AAC
+### 🔐 Security
 
-The application includes:
+    The application includes:
 
-File extension validation
-25 MB upload limit
-Chunk-based file handling
-Empty file validation
-Safe filename handling
-FFmpeg timeout protection
-Temporary file cleanup
-Controlled API error messages
-CORS configuration
-🚀 Running the Project
-Backend
-cd D:\SIH104\voice-impersonation-protection
-uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8000
-Frontend
-cd frontend
-npm run dev
+    File extension validation
+    25 MB upload limit
+    Chunk-based file handling
+    Empty file validation
+    Safe filename handling
+    FFmpeg timeout protection
+    Temporary file cleanup
+    Controlled API error messages
+    CORS configuration
+### 🚀 Running the Project
+        Backend
+        cd D:\SIH104\voice-impersonation-protection
+        uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8000
+
+## Frontend
+    cd frontend
+    npm run dev
 
 Frontend:
 
 http://localhost:5173
 
-Backend:
+## Backend:
+    http://127.0.0.1:8000
 
-http://127.0.0.1:8000
-🎯 Future Scope
-Real-time call analysis
-Speaker verification
-Advanced deepfake detection
-Multilingual fraud intent detection
-Cloud deployment
-Distributed blockchain integration
-Privacy-preserving evidence storage
-Mobile application
-Real-time telecom integration
+## 🎯 Future Scope
+    Real-time call analysis
+    Speaker verification
+    Advanced deepfake detection
+    Multilingual fraud intent detection
+    Cloud deployment
+    Distributed blockchain integration
+    Privacy-preserving evidence storage
+    Mobile application
+    Real-time telecom integration
