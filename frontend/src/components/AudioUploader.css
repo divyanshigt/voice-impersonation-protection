@@ -1,0 +1,574 @@
+/* ==========================================================================
+   AudioUploader — dropzone, loading scanner, result cards
+   ========================================================================== */
+
+/* ---------- Dropzone ---------- */
+
+.uploader-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: 12px;
+  padding: 40px 24px;
+  text-align: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.dropzone:hover,
+.dropzone.has-file {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.dropzone-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.dropzone-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.dropzone-formats {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.dropzone input[type='file'] {
+  display: none;
+}
+
+.dropzone-filename {
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 14px;
+  word-break: break-all;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #04141c;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #4bdcf1;
+}
+
+.btn-secondary {
+  background: var(--card-elevated);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- Error banner ---------- */
+
+.error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--danger-soft);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  font-size: 13.5px;
+}
+
+/* ---------- Loading scanner ---------- */
+
+.scanner {
+  margin-top: 20px;
+  padding: 22px;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+}
+
+.scanner-stage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.scanner-stage.is-active {
+  color: var(--accent);
+}
+
+.scanner-stage.is-done {
+  color: var(--text-secondary);
+}
+
+.scanner-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.scanner-stage.is-active .scanner-dot {
+  animation: scanner-pulse 1s ease-in-out infinite;
+}
+
+@keyframes scanner-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---------- Results layout ---------- */
+
+.results {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.summary-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--safe-soft);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.card-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: var(--card-elevated);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.card-header h3 {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.field-row:last-child {
+  border-bottom: none;
+}
+
+.field-label {
+  color: var(--text-muted);
+}
+
+.field-value {
+  color: var(--text);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* ---------- Risk ring (analysis summary) ---------- */
+
+.risk-summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  .risk-summary {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+.risk-ring-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+}
+
+.risk-ring-wrap svg {
+  transform: rotate(-90deg);
+}
+
+.risk-ring-track {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 10;
+}
+
+.risk-ring-value {
+  fill: none;
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.risk-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.risk-ring-number {
+  font-family: var(--font-mono);
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+}
+
+.risk-ring-max {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.risk-summary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.risk-level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 700px) {
+  .risk-level-badge {
+    align-self: center;
+  }
+}
+
+.risk-breakdown {
+  display: flex;
+  gap: 24px;
+}
+
+.risk-breakdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.risk-breakdown-label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.risk-breakdown-value {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* status color modifiers, reused across badges/pills/text */
+.tone-safe {
+  color: var(--safe);
+  background: var(--safe-soft);
+}
+.tone-warn {
+  color: var(--warn);
+  background: var(--warn-soft);
+}
+.tone-danger {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.action-panel {
+  margin-top: 4px;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.action-panel-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.action-panel-body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.reason-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ---------- Transcript / keyword chips ---------- */
+
+.transcript-box {
+  margin-top: 4px;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.lang-badge {
+  display: inline-flex;
+  padding: 3px 9px;
+  border-radius: 5px;
+  background: var(--card-elevated);
+  color: var(--text-secondary);
+  font-size: 11.5px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 14px;
+}
+
+.chip {
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--danger-soft);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* ---------- Evidence integrity ---------- */
+
+.evidence-card {
+  grid-column: 1 / -1;
+}
+
+.evidence-hash-row {
+  margin-top: 10px;
+}
+
+.evidence-hash-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.evidence-hash-value {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 10px 12px;
+  word-break: break-all;
+}
+
+.evidence-chain {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 18px 0 20px;
+  flex-wrap: wrap;
+}
+
+.evidence-chain-block {
+  padding: 6px 12px;
+  border-radius: 7px;
+  background: var(--card-elevated);
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.evidence-chain-block.is-current {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.evidence-chain-arrow {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.evidence-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.verify-result {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  border: 1px solid;
+}
+
+/* ---------- Blockchain history ---------- */
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.history-block {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  background: var(--bg-secondary);
+}
+
+.history-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.history-block-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.history-block-time {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.history-block-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px 20px;
+  margin-bottom: 10px;
+}
+
+.history-block-field {
+  font-size: 12.5px;
+}
+
+.history-block-field .field-label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.history-block-hash {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-muted);
+  word-break: break-all;
+}
